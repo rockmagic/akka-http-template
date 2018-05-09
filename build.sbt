@@ -12,3 +12,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.5" % Test,
   "com.softwaremill.sttp" %% "core" % "1.1.13" % Test
 )
+
+enablePlugins(JavaAppPackaging)
+
+dockerBaseImage := "anapsix/alpine-java"
+dockerExposedPorts ++= Seq(8000)
