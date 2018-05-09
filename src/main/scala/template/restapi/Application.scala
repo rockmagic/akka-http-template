@@ -15,7 +15,13 @@ object Application extends App {
 
     val routes = complete("Running ...")
 
-    Http().bindAndHandle(routes, "localhost", 8000)
+    val bindingFuture = Http().bindAndHandle(routes, "0.0.0.0", 8000).recoverWith {
+      case _ => sys.exit(1)
+    }
+
+    sys.addShutdownHook {
+      bindingFuture.map(_.unbind())
+    }
   }
 
   start()
