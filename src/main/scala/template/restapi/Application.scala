@@ -2,7 +2,6 @@ package template.restapi
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 
 import scala.concurrent.ExecutionContextExecutor
@@ -13,7 +12,7 @@ object Application extends App {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-    val routes = complete("Running ...")
+    val routes = (new Api).routes
 
     val bindingFuture = Http().bindAndHandle(routes, "0.0.0.0", 8000).recoverWith {
       case _ => sys.exit(1)

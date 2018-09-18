@@ -8,7 +8,7 @@ class ApplicationTest extends WordSpec with Matchers {
     "response on target port" in {
       implicit val backend: SttpBackend[Id, Nothing] = HttpURLConnectionBackend()
       Application.start()
-      sttp.get(uri"http://localhost:8000/").send().code shouldBe 200
+      sttp.get(uri"http://localhost:8000/status").send().code shouldBe 200
     }
   }
 }
