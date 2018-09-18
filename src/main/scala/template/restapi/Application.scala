@@ -4,10 +4,10 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 
-import scala.concurrent.ExecutionContextExecutor
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
 object Application extends App {
-  def start(): Unit = {
+  def start(): Future[Http.ServerBinding] = {
     implicit val system: ActorSystem = ActorSystem()
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
@@ -21,6 +21,8 @@ object Application extends App {
     sys.addShutdownHook {
       bindingFuture.map(_.unbind())
     }
+
+    bindingFuture
   }
 
   start()
