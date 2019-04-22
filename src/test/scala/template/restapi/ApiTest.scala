@@ -10,7 +10,6 @@ class ApiTest extends WordSpec with Matchers with ScalatestRouteTest {
   val routes: Route = (new Api).routes
 
   "API" should {
-    val routes = (new Api).routes
     "GET /status resp OK" in {
       Get("/status") ~> routes ~> check {
         status shouldBe StatusCodes.OK
